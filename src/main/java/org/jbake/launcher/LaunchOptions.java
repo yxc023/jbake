@@ -1,9 +1,9 @@
 package org.jbake.launcher;
 
-import java.io.File;
-
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
+
+import java.io.File;
 
 public class LaunchOptions {
 	@Argument(index = 0, usage = "source folder of site content (with templates and assets), if not supplied will default to current directory", metaVar = "<source>")
@@ -26,6 +26,9 @@ public class LaunchOptions {
 	
 	@Option(name = "-h", aliases = {"--help"}, usage="prints this message")
 	private boolean helpNeeded;
+
+	@Option(name = "-p", aliases = {"--publish"}, usage="publish site to a spec repo")
+	private boolean publish;
 
     @Option(name = "--reset", usage="clears the local cache, enforcing rendering from scratch")
     private boolean clearCache;
@@ -80,4 +83,12 @@ public class LaunchOptions {
     public boolean isBake() {
     	return bake || (source != null && destination != null);
 	}
+
+    public boolean isPublish() {
+        return publish;
+    }
+
+    public void setPublish(boolean publish) {
+        this.publish = publish;
+    }
 }

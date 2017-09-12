@@ -6,14 +6,13 @@ import org.jbake.app.ConfigUtil;
 import org.jbake.app.ConfigUtil.Keys;
 import org.jbake.app.FileUtil;
 import org.jbake.app.JBakeException;
+import org.jbake.publish.Publisher;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import java.io.File;
 import java.io.StringWriter;
-import java.text.MessageFormat;
-import java.util.List;
 
 /**
  * Launcher for JBake.
@@ -47,12 +46,14 @@ public class Main {
 	private Baker baker;
 	private JettyServer jettyServer;
 	private BakeWatcher watcher;
+	private Publisher publisher;
 
 	/**
 	 * Default constructor.
 	 */
 	public Main() {
 		this(new Baker(), new JettyServer(), new BakeWatcher());
+		this.publisher = new Publisher();
 	}
 
 	/**
@@ -98,6 +99,10 @@ public class Main {
 
 		if (res.isInit()) {
 			initStructure(config, res.getTemplate(), res.getSourceValue());
+		}
+
+		if (res.isPublish()) {
+
 		}
 		
 		if (res.isRunServer()) {
